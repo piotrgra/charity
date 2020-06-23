@@ -42,11 +42,6 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping("/form")
-    public String formAction(Model model) {
-        return "form";
-    }
-
     @RequestMapping("/login")
     public String loginAction(Model model) {
         return "login";

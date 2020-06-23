@@ -3,7 +3,9 @@ package pl.coderslab.charity.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "donations")
@@ -11,14 +13,14 @@ public class Donation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private Integer quantity;
 
     @OneToMany
-    private List<Category> categories;
+    private List<Category> categories = new ArrayList<>();
 
-    @OneToOne
+    @ManyToOne
     private Institution institution;
 
     private String street;
@@ -27,18 +29,19 @@ public class Donation {
 
     private String zipCode;
 
+    private String phone;
+
     private LocalDate pickUpDate;
 
     private LocalTime pickUpTime;
 
     private String pickUpComment;
 
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -49,6 +52,7 @@ public class Donation {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
 
     public List<Category> getCategories() {
         return categories;
@@ -114,6 +118,43 @@ public class Donation {
         this.pickUpComment = pickUpComment;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public Donation() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Donation donation = (Donation) o;
+        return id == donation.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Donation{" +
+                "id=" + id +
+                ", quantity=" + quantity +
+                ", categories=" + categories +
+                ", institution=" + institution +
+                ", street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", pickUpDate=" + pickUpDate +
+                ", pickUpTime=" + pickUpTime +
+                ", pickUpComment='" + pickUpComment + '\'' +
+                '}';
     }
 }
