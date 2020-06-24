@@ -1,5 +1,7 @@
 package pl.coderslab.charity.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,7 +19,7 @@ public class Donation {
 
     private Integer quantity;
 
-    @OneToMany
+    @ManyToMany
     private List<Category> categories = new ArrayList<>();
 
     @ManyToOne
@@ -31,6 +33,7 @@ public class Donation {
 
     private String phone;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickUpDate;
 
     private LocalTime pickUpTime;
