@@ -9,12 +9,14 @@
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function () {
 
+
             let summaryButton = document.querySelector("#summary");
 
             summaryButton.addEventListener("click", function () {
                 let category = document.querySelectorAll("input[name='categories']:checked");
                 let bags = document.querySelector("#bags").value;
-                let institutions = document.querySelector("#ins").querySelector("option").innerText;
+                let institutions2 = document.querySelector("#ins");
+                let selectedInstitution = institutions2.options[institutions2.selectedIndex].innerText;
                 let street = document.querySelector("#street").value;
                 let city = document.querySelector("#city").value;
                 let zipCode = document.querySelector("#zipCode").value;
@@ -31,7 +33,7 @@
 
                 // Edycja kroku podsumowania
                 document.querySelector("#stuff").innerText = bags + " worki z " + stuffPicked.toString();
-                document.querySelector("#summary-ins").innerText = institutions;
+                document.querySelector("#summary-ins").innerText = selectedInstitution;
                 document.querySelector("#summary-street").innerText = street;
                 document.querySelector("#summary-city").innerText = city;
                 document.querySelector("#summary-zipCode").innerText = zipCode;
@@ -40,16 +42,15 @@
                 document.querySelector("#summary-time").innerText = pickUpTime;
                 document.querySelector("#summary-comment").innerText = pickUpComment;
 
-/*                if (stuffPicked.length < 1 || bags < 1 || street === "" || city === "" || zipCode === "" || phone === "" || pickUpDate === "" || pickUpTime === "") {
-                    document.getElementById("confirm").disabled = true;
-                    document.querySelector("#error").innerText = "Nie podales wszystkich wymaganych danych";
-                }
+                let confirm = document.querySelector("#confirm");
 
-                document.querySelectorAll(".prev-step").forEach((prevstep) => {
-                    prevstep.addEventListener("click", function (event) {
-                        document.getElementById("confirm").disabled = false;
-                    })
-                });*/
+                if (stuffPicked.length < 1 || bags < 1 || street === "" || city === "" || zipCode === "" || phone === "" || pickUpDate === "" || pickUpTime === "") {
+                    confirm.disabled = true;
+                    document.querySelector("#error").innerText = "Nie podales wszystkich wymaganych danych";
+                } else {
+                    document.querySelector("#error").innerText = "";
+                    confirm.disabled = false;
+                }
 
             });
         });
