@@ -11,13 +11,16 @@
 
 <section class="login-page">
     <h2>Zaloguj się</h2>
-    <form>
+    <form method="post">
         <div class="form-group">
-            <input type="email" name="email" placeholder="Email"/>
+            <label>
+                <input type="text" name="text" placeholder="Login"/>
+            </label>
         </div>
         <div class="form-group">
-            <input type="password" name="password" placeholder="Hasło"/>
-            <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
+            <label>
+                <input type="password" name="password" placeholder="Hasło"/>
+            </label>
         </div>
 
         <div class="form-group form-group--buttons">

@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.charity.entity.Category;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.Institution;
@@ -47,10 +46,9 @@ public class DonationController {
     }
 
     @PostMapping("/form")
-    @ResponseBody
     public String postForm(@ModelAttribute Donation donation) {
         donationRepository.save(donation);
-        return donation.toString();
+        return "form-confirm";
     }
 
 }

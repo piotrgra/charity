@@ -43,12 +43,12 @@ public class HomeController {
     }
 
     @RequestMapping("/login")
-    public String loginAction(Model model) {
+    public String loginAction() {
         return "login";
     }
 
     @RequestMapping("/register")
-    public String registerAction(Model model) {
+    public String registerAction() {
         return "register";
     }
 }

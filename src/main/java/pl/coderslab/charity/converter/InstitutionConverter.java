@@ -9,7 +9,7 @@ import pl.coderslab.charity.repository.InstitutionRepository;
 import java.util.Optional;
 
 @Component
-public class InsitutionConverter implements Converter<String, Institution> {
+public class InstitutionConverter implements Converter<String, Institution> {
 
     @Autowired
     private InstitutionRepository institutionRepository;
