@@ -47,8 +47,4 @@ public class HomeController {
         return "login";
     }
 
-    @RequestMapping("/register")
-    public String registerAction() {
-        return "register";
-    }
 }

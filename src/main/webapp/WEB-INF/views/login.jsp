@@ -14,7 +14,7 @@
     <form method="post">
         <div class="form-group">
             <label>
-                <input type="text" name="text" placeholder="Login"/>
+                <input type="text" name="username" placeholder="Login"/>
             </label>
         </div>
         <div class="form-group">
@@ -26,6 +26,8 @@
         <div class="form-group form-group--buttons">
             <a href="<c:url value="/register"/>" class="btn btn--without-border">Załóż konto</a>
             <button class="btn" type="submit">Zaloguj się</button>
+
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </div>
     </form>
 </section>
