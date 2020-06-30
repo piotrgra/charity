@@ -15,26 +15,33 @@
 <body>
 
 <nav class="container container--70">
-    <ul class="nav--actions">
-        <li><a href="<c:url value="/login"/>" class="btn btn--small btn--without-border">Zaloguj</a></li>
-        <li><a href="<c:url value="/register"/>" class="btn btn--small btn--highlighted">Załóż konto</a></li>
-    </ul>
+    <c:if test="${currentUser == null}">
+        <ul class="nav--actions">
 
-    <!--
+            <li><a href="<c:url value="/login"/>" class="btn btn--small btn--without-border">Zaloguj</a></li>
+            <li><a href="<c:url value="/register"/>" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+        </ul>
+    </c:if>
+    <c:if test="${currentUser != null}">
+        <ul class="nav--actions">
+            <li class="logged-user">
+                Witaj <c:out value="${currentUser.getFirstName()}"/>
+                <ul class="dropdown">
+                    <li><a href="#">Profil</a></li>
+                    <li><a href="#">Moje zbiórki</a></li>
+                    <li>
 
-    //TODO
-     <ul class="nav--actions">
-                <li class="logged-user">
-                    Witaj Agata
-                    <ul class="dropdown">
-                        <li><a href="#">Profil</a></li>
-                        <li><a href="#">Moje zbiórki</a></li>
-                        <li><a href="#">Wyloguj</a></li>
-                    </ul>
-                </li>
-      </ul>
-     -->
+                        <form action="<c:url value="/logout"/>" method="post">
+                            <input class="fa fa-id-badge" type="submit" value="Wyloguj">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
 
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </c:if>
     <ul>
         <li><a href="<c:url value="/"/>" class="btn btn--without-border active">Start</a></li>
         <li><a href="<c:url value="/#steps"/>" class="btn btn--without-border">O co chodzi?</a></li>

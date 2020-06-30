@@ -2,9 +2,11 @@ package pl.coderslab.charity.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.charity.entity.CurrentUser;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.service.UserService;
@@ -18,24 +20,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/create-user")
-    @ResponseBody
-    public String createUser() {
-        User user = new User();
-        user.setUsername("admin");
-        user.setPassword("admin");
-        userService.saveUser(user);
-        return "admin";
-    }
 
-    @GetMapping("/admin")
-    public String admin(@AuthenticationPrincipal CurrentUser customUser) {
-        User entityUser = customUser.getUser();
-        return "admin/index";
-    }
 
     @RequestMapping("/register")
-    public String registerAction() {
+    public String registerAction(Model model) {
+        model.addAttribute("user", new User());
         return "register";
+    }
+
+    @PostMapping("/register")
+    public String postRegisterAction(@ModelAttribute User user) {
+        userService.saveUser(user);
+        return "index";
     }
 }

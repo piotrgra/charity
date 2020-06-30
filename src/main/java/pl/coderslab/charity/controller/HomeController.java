@@ -1,9 +1,12 @@
 package pl.coderslab.charity.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.charity.entity.CurrentUser;
 import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
@@ -38,13 +41,19 @@ public class HomeController {
     }
 
     @RequestMapping("/")
-    public String homeAction(Model model) {
+    public String homeAction(Model model, @AuthenticationPrincipal CurrentUser customUser) {
+        if (customUser != null) {
+            model.addAttribute("currentUser", customUser.getUser());
+        }
         return "index";
     }
 
-    @RequestMapping("/login")
-    public String loginAction() {
-        return "login";
+    @GetMapping("/login")
+    public String loginAction(@AuthenticationPrincipal CurrentUser customUser) {
+        if (customUser == null) {
+            return "login";
+        }
+        return "index";
     }
 
 }

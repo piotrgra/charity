@@ -1,11 +1,13 @@
 package pl.coderslab.charity.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.entity.Category;
+import pl.coderslab.charity.entity.CurrentUser;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.repository.CategoryRepository;
@@ -39,8 +41,11 @@ public class DonationController {
     }
 
     @RequestMapping("/form")
-    public String form(Model model) {
+    public String form(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
+        if (currentUser != null) {
+            model.addAttribute("currentUser", currentUser.getUser());
 
+        }
         model.addAttribute("donation", new Donation());
         return "form";
     }
