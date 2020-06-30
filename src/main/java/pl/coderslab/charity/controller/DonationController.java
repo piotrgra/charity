@@ -41,11 +41,7 @@ public class DonationController {
     }
 
     @RequestMapping("/form")
-    public String form(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
-        if (currentUser != null) {
-            model.addAttribute("currentUser", currentUser.getUser());
-
-        }
+    public String form(Model model) {
         model.addAttribute("donation", new Donation());
         return "form";
     }

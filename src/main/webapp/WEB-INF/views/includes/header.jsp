@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -15,17 +16,17 @@
 <body>
 
 <nav class="container container--70">
-    <c:if test="${currentUser == null}">
+    <sec:authorize access="!isAuthenticated()">
         <ul class="nav--actions">
 
             <li><a href="<c:url value="/login"/>" class="btn btn--small btn--without-border">Zaloguj</a></li>
             <li><a href="<c:url value="/register"/>" class="btn btn--small btn--highlighted">Załóż konto</a></li>
         </ul>
-    </c:if>
-    <c:if test="${currentUser != null}">
+    </sec:authorize>
+    <sec:authorize access="isAuthenticated()">
         <ul class="nav--actions">
             <li class="logged-user">
-                Witaj <c:out value="${currentUser.getFirstName()}"/>
+                Witaj <sec:authentication property="name"/>
                 <ul class="dropdown">
                     <li><a href="#">Profil</a></li>
                     <li><a href="#">Moje zbiórki</a></li>
@@ -41,7 +42,7 @@
             </li>
         </ul>
 
-    </c:if>
+    </sec:authorize>
     <ul>
         <li><a href="<c:url value="/"/>" class="btn btn--without-border active">Start</a></li>
         <li><a href="<c:url value="/#steps"/>" class="btn btn--without-border">O co chodzi?</a></li>

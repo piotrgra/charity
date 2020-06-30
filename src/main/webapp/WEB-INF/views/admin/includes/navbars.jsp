@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html lang="en">
 
 <jsp:include page="header.jsp"/>
@@ -9,11 +10,11 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value="/admin/" />">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value="/admin" />">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-hamburger"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Food APP <sup>xD</sup></div>
+        <div class="sidebar-brand-text mx-3">Charity App</div>
     </a>
 
     <!-- Divider -->
@@ -35,30 +36,22 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/orders" />">
+        <a class="nav-link" href="<c:url value="/admin/institutions" />">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Zamówienia</span></a>
+            <span>Instytucje</span></a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/items" />">
+        <a class="nav-link" href="<c:url value="/admin/admins" />">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Potrawy</span></a>
+            <span>Administratorzy</span></a>
     </li>
 
 
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/categories" />">
+        <a class="nav-link" href="<c:url value="/admin/users" />">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Kategorie</span></a>
-    </li>
-
-    <hr class="sidebar-divider">
-
-    <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/shopsetting" />">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Ustawienia sklepu</span></a>
+            <span>Uzytkownicy</span></a>
     </li>
 
     <!-- Divider -->
@@ -95,7 +88,11 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="name"/>
+</sec:authorize>
+                        </span>
                         <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                     </a>
                     <!-- Dropdown - User Information -->
@@ -114,7 +111,8 @@
                             Activity Log
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                        <a class="dropdown-item" href="<c:url value="/logout" />" data-toggle="modal"
+                           data-target="#logoutModal">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Logout
                         </a>
