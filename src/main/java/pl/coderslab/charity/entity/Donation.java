@@ -22,7 +22,8 @@ public class Donation {
     @ManyToMany
     private List<Category> categories = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "institution_id")
     private Institution institution;
 
     private String street;
@@ -145,19 +146,4 @@ public class Donation {
         return Objects.hash(id);
     }
 
-    @Override
-    public String toString() {
-        return "Donation{" +
-                "id=" + id +
-                ", quantity=" + quantity +
-                ", categories=" + categories +
-                ", institution=" + institution +
-                ", street='" + street + '\'' +
-                ", city='" + city + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", pickUpDate=" + pickUpDate +
-                ", pickUpTime=" + pickUpTime +
-                ", pickUpComment='" + pickUpComment + '\'' +
-                '}';
-    }
 }

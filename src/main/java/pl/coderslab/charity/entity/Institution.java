@@ -27,8 +27,8 @@ public class Institution {
     @Enumerated(EnumType.STRING)
     private InstitutionState state;
 
-    @OneToMany
-    private List<Institution> institutions = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "institution")
+    private List<Donation> donations = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -54,12 +54,12 @@ public class Institution {
         this.description = description;
     }
 
-    public List<Institution> getInstitutions() {
-        return institutions;
+    public List<Donation> getDonations() {
+        return donations;
     }
 
-    public void setInstitutions(List<Institution> institutions) {
-        this.institutions = institutions;
+    public void setDonations(List<Donation> donations) {
+        this.donations = donations;
     }
 
     public InstitutionState getState() {
@@ -91,13 +91,5 @@ public class Institution {
         return Objects.hash(id);
     }
 
-    @Override
-    public String toString() {
-        return "Institution{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", institutions=" + institutions +
-                '}';
-    }
+
 }
