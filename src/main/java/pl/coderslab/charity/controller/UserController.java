@@ -1,13 +1,10 @@
 package pl.coderslab.charity.controller;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.coderslab.charity.entity.CurrentUser;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.service.UserService;
 
@@ -19,7 +16,6 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
 
 
     @RequestMapping("/register")

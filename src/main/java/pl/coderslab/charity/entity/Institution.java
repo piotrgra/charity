@@ -1,5 +1,10 @@
 package pl.coderslab.charity.entity;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+import pl.coderslab.charity.enmu.InstitutionState;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +12,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "institutions")
+@SQLDelete(sql = "UPDATE institutions SET state = 'DELETED' WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "state <> 'DELETED'")
 public class Institution {
 
     @Id
@@ -16,6 +23,9 @@ public class Institution {
     private String name;
 
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    private InstitutionState state;
 
     @OneToMany
     private List<Institution> institutions = new ArrayList<>();
@@ -52,7 +62,20 @@ public class Institution {
         this.institutions = institutions;
     }
 
+    public InstitutionState getState() {
+        return state;
+    }
+
+    public void setState(InstitutionState state) {
+        this.state = state;
+    }
+
     public Institution() {
+    }
+
+    @PreRemove
+    public void deleteInstitution() {
+        this.state = InstitutionState.DELETED;
     }
 
     @Override
