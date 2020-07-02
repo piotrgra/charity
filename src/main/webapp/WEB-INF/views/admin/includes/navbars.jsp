@@ -42,7 +42,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/admins" />">
+        <a class="nav-link" href="<c:url value="/admin/administrators" />">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Administratorzy</span></a>
     </li>

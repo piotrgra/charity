@@ -1,9 +1,16 @@
 package pl.coderslab.charity.entity;
 
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+import pl.coderslab.charity.enmu.UserState;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@SQLDelete(sql = "UPDATE user SET state = 'DELETED' WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "state <> 'DELETED'")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +21,9 @@ public class User {
     private String lastName;
 
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    private UserState state;
 
     @Column(nullable = false, unique = true, length = 60)
     private String username;
@@ -89,6 +99,23 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isEnable() {
+        return this.enabled == 1;
+    }
+
+    public UserState getState() {
+        return state;
+    }
+
+    public void setState(UserState state) {
+        this.state = state;
+    }
+
+    @PreRemove
+    public void deleteInstitution() {
+        this.state = UserState.DELETED;
     }
 
     public User() {

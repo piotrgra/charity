@@ -27,7 +27,7 @@ public class InstitutionController {
     }
 
     @GetMapping("/update/{id}")
-    public String addInstitution(@PathVariable long id, Model model) {
+    public String updateInstitution(@PathVariable long id, Model model) {
         Optional<Institution> institution = institutionRepository.findById(id);
         institution.ifPresent(value -> model.addAttribute("institution", value));
         return "admin/institution-form";
