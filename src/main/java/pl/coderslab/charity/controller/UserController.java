@@ -64,8 +64,8 @@ public class UserController {
         role.setName("ROLE_ADMIN");
         Role role2 = new Role();
         role2.setName("ROLE_USER");
-        roleRepository.save(role);
         roleRepository.save(role2);
+        roleRepository.save(role);
         return "index";
     }
 }
