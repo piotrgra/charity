@@ -12,9 +12,6 @@ import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.service.UserService;
 
-import java.util.Collections;
-import java.util.HashSet;
-
 @Controller
 public class UserController {
 
