@@ -7,9 +7,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.enmu.UserState;
+import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.service.UserService;
+
+import java.util.Collections;
+import java.util.HashSet;
 
 @Controller
 public class UserController {
@@ -48,6 +52,8 @@ public class UserController {
         user.setState(UserState.ACTIVE);
         user.setUsername("admin");
 
+        Role userRole = roleRepository.findByName("ROLE_ADMIN");
+        user.setRoles(new HashSet<>(Collections.singletonList(userRole)));
         userService.saveUser(user);
         return "index";
     }
