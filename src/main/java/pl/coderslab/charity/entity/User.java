@@ -11,9 +11,11 @@ import java.util.Set;
 @Entity
 @SQLDelete(sql = "UPDATE user SET state = 'DELETED' WHERE id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "state <> 'DELETED'")
+@Table("users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableGenerator(name="TABLE_GEN",table="T_GENERATOR",pkColumnName="GEN_KEY",pkColumnValue="TEST",valueColumnName="GEN_VALUE",initialValue=1,allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.TABLE, generator="TABLE_GEN")
     private Long id;
 
     private String firstName;
