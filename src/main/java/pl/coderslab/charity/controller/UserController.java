@@ -57,4 +57,15 @@ public class UserController {
         userService.saveUser(user);
         return "index";
     }
+
+    @GetMapping("/createRoles")
+    public String createRoles(){
+        Role role = new Role();
+        role.setName("ROLE_ADMIN");
+        Role role2 = new Role();
+        role2.setName("ROLE_USER");
+        roleRepository.save(role);
+        roleRepository.save(role2);
+        return "index";
+    }
 }
