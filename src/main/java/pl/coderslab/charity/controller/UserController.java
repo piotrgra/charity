@@ -41,31 +41,14 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/createAdmin")
-    public String createAdmin(){
-        User user = new User();
-        user.setFirstName("Admin");
-        user.setLastName("Admin");
-        user.setPassword("admin");
-        user.setEmail("admin");
-        user.setEnabled(1);
-        user.setState(UserState.ACTIVE);
-        user.setUsername("admin");
-
-        Role userRole = roleRepository.findByName("ROLE_ADMIN");
-        user.setRoles(new HashSet<>(Collections.singletonList(userRole)));
-        userService.saveUser(user);
-        return "index";
-    }
-
     @GetMapping("/createRoles")
     public String createRoles(){
         Role role = new Role();
         role.setName("ROLE_ADMIN");
         Role role2 = new Role();
         role2.setName("ROLE_USER");
-        roleRepository.save(role2);
         roleRepository.save(role);
+        roleRepository.save(role2);
         return "index";
     }
 }
