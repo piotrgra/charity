@@ -2,6 +2,7 @@ package pl.coderslab.charity.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,5 +35,20 @@ public class UserController {
         user.setState(UserState.ACTIVE);
         userService.saveUser(user);
         return "redirect:/";
+    }
+
+    @GetMapping("/createAdmin")
+    public String createAdmin(){
+        User user = new User();
+        user.setFirstName("Admin");
+        user.setLastName("Admin");
+        user.setPassword("admin");
+        user.setEmail("admin");
+        user.setEnabled(1);
+        user.setState(UserState.ACTIVE);
+        user.setUsername("admin");
+
+        userService.saveUser(user);
+        return "index";
     }
 }
